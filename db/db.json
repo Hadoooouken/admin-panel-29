@@ -1,0 +1,47 @@
+{
+  "users": [
+    {
+      "name": "Владислав",
+      "email": "wolverinexdd@yandex.ru",
+      "children": true,
+      "permissions": false,
+      "id": "mMBwTlvziI0"
+    },
+    {
+      "name": "Елена",
+      "email": "wolverinexdd@yandex.ru",
+      "children": false,
+      "permissions": false,
+      "id": "oLJDmBuzmOI"
+    },
+    {
+      "name": "вововов",
+      "email": "wolverinexdd@yandex.ru",
+      "children": true,
+      "permissions": false,
+      "id": "gBvZY3UBEI4"
+    },
+    {
+      "name": "Владислав",
+      "email": "wolverinexdd@yandex.ru",
+      "children": false,
+      "permissions": false,
+      "id": "jpqYSk8i7Ls"
+    },
+    {
+      "name": "Руслан",
+      "email": "wolverinexdd@yandex.ru",
+      "children": false,
+      "permissions": false,
+      "id": "Xgh0rZ3DtFM"
+    },
+    {
+      "name": "Геннадий",
+      "email": "bogatgennn@rambler.ru",
+      "children": false,
+      "permissions": false,
+      "id": "R-EWaEy-_cs"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
