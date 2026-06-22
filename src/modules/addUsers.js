@@ -17,13 +17,23 @@ export const addUsers = () => {
       };
 
       userService
-        .addUsers(user)
+        .postData(baseUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(user),
+        })
         .then(() => {
-          return userService.getUsers();
+          return userService.getData(baseUrl);
         })
         .then((users) => {
+          errorBlock.textContent = '';
           render(users);
-          form.reset()
+          form.reset();
+        })
+        .catch(() => {
+          errorBlock.textContent = 'Произошла ошибка, данных нет';
         });
     }
   });

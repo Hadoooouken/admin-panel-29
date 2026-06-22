@@ -5,10 +5,16 @@ export const searchUsers = () => {
   const searchInput = document.querySelector('#search-input');
 
   const debounceSearch = debounce(() => {
-    userService.getSearchUsers(searchInput.value).then((data) => {
-      render(data);
-      debounce();
-    });
+    userService
+      .getData(`${baseUrl}?name:contains=${searchInput.value}`)
+      .then((data) => {
+        errorBlock.textContent = '';
+        render(data);
+    
+      })
+      .catch((error) => {
+        errorBlock.textContent = 'Произошла ошибка, данных нет';
+      });
   });
   searchInput.addEventListener('input', () => {
     debounceSearch();

@@ -4,22 +4,39 @@ export const filterUsers = () => {
   const btnChildren = document.querySelector('#btn-isChildren');
   const btnPermissions = document.querySelector('#btn-isPermissions');
   const btnAll = document.querySelector('#btn-isAll ');
-  console.log(btnChildren, btnPermissions, btnAll);
 
   btnChildren.addEventListener('click', (evt) => {
-    userService.filterUsers('children').then((data) => {
-      render(data);
-    });
+    userService
+      .getData(`${baseUrl}?children=true`)
+      .then((data) => {
+        errorBlock.textContent = '';
+        render(data);
+      })
+      .catch((error) => {
+        errorBlock.textContent = 'Произошла ошибка, данных нет';
+      });
   });
 
   btnPermissions.addEventListener('click', (evt) => {
-    userService.filterUsers('permissions').then((data) => {
-      render(data);
-    });
+    userService
+      .getData(`${baseUrl}?permissions=true`)
+      .then((data) => {
+        errorBlock.textContent = '';
+        render(data);
+      })
+      .catch((error) => {
+        errorBlock.textContent = 'Произошла ошибка, данных нет';
+      });
   });
   btnAll.addEventListener('click', (evt) => {
-    userService.getUsers().then((data) => {
-      render(data);
-    });
+    userService
+      .getData(baseUrl)
+      .then((data) => {
+        errorBlock.textContent = '';
+        render(data);
+      })
+      .catch((error) => {
+        errorBlock.textContent = 'Произошла ошибка, данных нет';
+      });
   });
 };

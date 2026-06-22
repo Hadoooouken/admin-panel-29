@@ -9,22 +9,17 @@ export const editUsers = () => {
 
   tbody.addEventListener('click', (e) => {
     if (e.target.closest('.btn-edit')) {
-      const tr = event.target.closest('tr');
+      const tr = e.target.closest('tr');
       const userId = tr.getAttribute('data-key');
       const input = tr.querySelector('#form-children');
 
-      userService.getUser(userId).then((user) => {
+      userService.getData(`${baseUrl}/${userId}`).then((user) => {
         nameInput.value = user.name;
         emailInput.value = user.email;
         childrenInput.checked = user.children;
 
         form.dataset.method = userId;
-        // return res;
-        //   return userService.getUsers();
       });
-      // .then((users) => {
-      //   render(users);
-      // });
     }
   });
 
@@ -40,12 +35,22 @@ export const editUsers = () => {
       };
 
       userService
-        .editUser(userId, user)
+        .postData(`${baseUrl}/${userId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(user),
+        })
         .then(() => {
-          return userService.getUsers();
+          return userService.getData(baseUrl);
         })
         .then((users) => {
+          errorBlock.textContent = '';
           render(users);
+        })
+        .catch((error) => {
+          errorBlock.textContent = 'Произошла ошибка, данных нет';
         })
         .finally(() => {
           form.reset();

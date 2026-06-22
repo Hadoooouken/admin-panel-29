@@ -5,15 +5,24 @@ export const removeUsers = () => {
 
   tbody.addEventListener('click', (e) => {
     if (e.target.closest('.btn-remove')) {
-      const tr = event.target.closest('tr');
+      const tr = e.target.closest('tr');
       const userId = tr.getAttribute('data-key');
-      userService.removeUsers(userId)
+      userService
+        .postData(`${baseUrl}/${userId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
         .then(() => {
-          return userService.getUsers();
+          return userService.getData(baseUrl);
         })
         .then((users) => {
-          console.log(users);
+              errorBlock.textContent = '';
           render(users);
+        })
+        .catch((error) => {
+          errorBlock.textContent = 'Произошла ошибка, данных нет';
         });
     }
   });

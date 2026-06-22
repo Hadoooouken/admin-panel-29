@@ -5,17 +5,27 @@ export const changePermissons = () => {
 
   tbody.addEventListener('click', (e) => {
     if (e.target.closest('#form-children')) {
-      const tr = event.target.closest('tr');
+      const tr = e.target.closest('tr');
       const userId = tr.getAttribute('data-key');
       const input = tr.querySelector('#form-children');
 
       userService
-        .changeUser(userId, { permissions: input.checked })
+        .postData(`${baseUrl}/${userId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ permissions: input.checked }),
+        })
         .then(() => {
-          return userService.getUsers();
+          return userService.getData(baseUrl);
         })
         .then((users) => {
+          errorBlock.textContent = '';
           render(users);
+        })
+        .catch((error) => {
+          errorBlock.textContent = 'Произошла ошибка, данных нет';
         });
     }
   });
